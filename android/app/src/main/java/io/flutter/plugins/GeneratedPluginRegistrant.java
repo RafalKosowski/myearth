@@ -1,7 +1,7 @@
 package io.flutter.plugins;
 
 import io.flutter.plugin.common.PluginRegistry;
-import com.lyokone.location.LocationPlugin;
+import io.flutter.plugins.googlemaps.GoogleMapsPlugin;
 
 /**
  * Generated file. Do not edit.
@@ -11,7 +11,7 @@ public final class GeneratedPluginRegistrant {
     if (alreadyRegisteredWith(registry)) {
       return;
     }
-    LocationPlugin.registerWith(registry.registrarFor("com.lyokone.location.LocationPlugin"));
+    GoogleMapsPlugin.registerWith(registry.registrarFor("io.flutter.plugins.googlemaps.GoogleMapsPlugin"));
   }
 
   private static boolean alreadyRegisteredWith(PluginRegistry registry) {
