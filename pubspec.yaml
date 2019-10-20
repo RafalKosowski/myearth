@@ -27,7 +27,10 @@ dependencies:
 
   charts_flutter: ^0.8.1
   json_annotation: ^2.0.0
+  http: ^0.12.0+2
 
+  provider: ^3.0.0
+  location: ^2.3.5
 
 dev_dependencies:
   flutter_test:

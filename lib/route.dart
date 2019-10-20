@@ -3,6 +3,52 @@ import 'chart.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 import 'dart:io';
+import 'package:provider/provider.dart';
+import 'package:location/location.dart';
+
+//gps
+class LocationService {
+  UserLocation _currentLocation;
+  var location = Location();
+  Future<UserLocation> getLocation() async {
+    try {
+      var userLocation = await location.getLocation();
+      _currentLocation = UserLocation(
+        latitude: userLocation.latitude,
+        longitude: userLocation.longitude,
+      );
+    } on Exception catch (e) {
+      print('Could not get location: ${e.toString()}');
+    }
+    return _currentLocation;
+  }
+  StreamController<UserLocation> _locationController =
+  StreamController<UserLocation>();
+  Stream<UserLocation> get locationStream => _locationController.stream;
+  LocationService() {
+    // Request permission to use location
+    location.requestPermission().then((granted) {
+      if (granted) {
+        // If granted listen to the onLocationChanged stream and emit over our controller
+        location.onLocationChanged().listen((locationData) {
+          if (locationData != null) {
+            _locationController.add(UserLocation(
+              latitude: locationData.latitude,
+              longitude: locationData.longitude,
+            ));
+          }
+        });
+      }
+    });
+  }
+}
+
+class UserLocation {
+  final double latitude;
+  final double longitude;
+  UserLocation({this.latitude, this.longitude});
+}//gps
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -16,6 +62,8 @@ class _HomePage extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+
+
     // Check internet connection
     Timer.run(() {
       try {
@@ -80,17 +128,14 @@ class _HomePage extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text("My Earth"),
       ),
       body: Center(
-        child: Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nibh ante, sagittis sit amet vehicula eget, lobortis ac ex. In condimentum porttitor aLorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nibh ante, sagittis sit amet vehicula eget, lobortliquet. Praesent congue est a lacus sagittis aliquet. Pellentesque dictum sollicitudin velit, et eleifend turpis varius quis. Suspendisse ultricies in sapien sit amet facilisis. Quisque commodo tempor tortor, id fermentum massa posuere vitae. Nunc cursus massa ut purus laoreet, a iaculis erat semper. Duis tristique ex quis eros fermentum, ut tempus libero hendrerit. Quisque dignissim tortor in magna sagittis bibendum. Morbi turpis sem, fermentum ac velit eget, rutrum malesuada lorem. Aliquam feugiat in massa varius vulputate. Maecenas ac efficitur neque. In interdum laoreet diam eget hendrerit. Curabitur quis lorem nec urna maximus rutrum.",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            )),
-      ),
+          child: Text("Home",
+              style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold))),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
@@ -219,11 +264,10 @@ class NewPage4 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Earth")),
-      body: Center(
-          child: Text("W przyszłości będzie tu ziemia 3D",
-              style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold))),
+    var userLocation = Provider.of<UserLocation>(context);
+    return Center(
+      child: Text(
+          'Location: Lat${userLocation?.latitude}, Long: ${userLocation?.longitude}'),
     );
   }
 }
