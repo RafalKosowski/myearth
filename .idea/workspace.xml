@@ -12,7 +12,6 @@
     <list default="true" id="42282bbc-612b-40be-8838-7d85bb89baf5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/route.dart" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -33,22 +32,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="382" column="21" lean-forward="true" selection-start-line="382" selection-start-column="21" selection-end-line="382" selection-end-column="21" />
+            <state relative-caret-position="285">
+              <caret line="729" column="40" lean-forward="true" selection-start-line="729" selection-start-column="40" selection-end-line="729" selection-end-column="40" />
               <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/chart.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="935">
-              <caret line="55" column="1" selection-start-line="55" selection-start-column="1" selection-end-line="55" selection-end-column="1" />
-              <folding>
-                <element signature="e#0#55#0" expanded="true" />
+                <element signature="e#1#21#0" expanded="true" />
+                <element signature="e#741#1672#0" />
+                <element signature="e#1685#2226#0" />
+                <element signature="e#2242#2815#0" />
+                <element signature="e#3250#7164#0" />
+                <element signature="e#7185#7594#0" />
+                <element signature="e#8035#8585#0" />
+                <element signature="e#8599#9234#0" />
               </folding>
             </state>
           </provider>
@@ -88,19 +82,15 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="952" />
-    <option name="y" value="-8" />
-    <option name="width" value="976" />
-    <option name="height" value="1056" />
+    <option name="x" value="-7" />
+    <option name="width" value="974" />
+    <option name="height" value="1047" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -143,13 +133,16 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../g" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -199,7 +192,14 @@
       <option name="project" value="LOCAL" />
       <updated>1571598254157</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="dodany przycisk na wykresie">
+      <created>1571923094632</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1571923094632</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView">
@@ -224,8 +224,8 @@
       <window_info id="Resources Explorer" order="6" weight="0.32995737" />
       <window_info id="Capture Tool" order="7" />
       <window_info id="Favorites" order="8" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Dart Analysis" order="0" sideWeight="0.49946696" visible="true" weight="0.30985916" />
-      <window_info anchor="bottom" id="Run" order="1" sideWeight="0.49733475" weight="0.2990249" />
+      <window_info anchor="bottom" id="Dart Analysis" order="0" sideWeight="0.49946696" weight="0.30985916" />
+      <window_info active="true" anchor="bottom" id="Run" order="1" sideWeight="0.49733475" visible="true" weight="0.2990249" />
       <window_info anchor="bottom" id="TODO" order="2" weight="0.32936078" />
       <window_info anchor="bottom" id="Android Profiler" order="3" show_stripe_button="false" />
       <window_info anchor="bottom" id="Logcat" order="4" weight="0.32936078" />
@@ -259,7 +259,8 @@
     <MESSAGE value="Menu, gps, internet" />
     <MESSAGE value="Menu map graph internet" />
     <MESSAGE value="Działa menu gps internet mapa wykres api w drodze" />
-    <option name="LAST_COMMIT_MESSAGE" value="Działa menu gps internet mapa wykres api w drodze" />
+    <MESSAGE value="dodany przycisk na wykresie" />
+    <option name="LAST_COMMIT_MESSAGE" value="dodany przycisk na wykresie" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://D:/src/flutter/packages/flutter/lib/src/widgets/framework.dart">
@@ -307,23 +308,7 @@
     <entry file="file://$PROJECT_DIR$/android/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="799">
-          <caret line="47" column="29" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/route.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="6" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/route.dart" />
     <entry file="file://$PROJECT_DIR$/android/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -333,7 +318,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/chart.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="935">
+        <state relative-caret-position="578">
           <caret line="55" column="1" selection-start-line="55" selection-start-column="1" selection-end-line="55" selection-end-column="1" />
           <folding>
             <element signature="e#0#55#0" expanded="true" />
@@ -341,12 +326,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="664">
+          <caret line="47" column="29" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="382" column="21" lean-forward="true" selection-start-line="382" selection-start-column="21" selection-end-line="382" selection-end-column="21" />
+        <state relative-caret-position="285">
+          <caret line="729" column="40" lean-forward="true" selection-start-line="729" selection-start-column="40" selection-end-line="729" selection-end-column="40" />
           <folding>
-            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#1#21#0" expanded="true" />
+            <element signature="e#741#1672#0" />
+            <element signature="e#1685#2226#0" />
+            <element signature="e#2242#2815#0" />
+            <element signature="e#3250#7164#0" />
+            <element signature="e#7185#7594#0" />
+            <element signature="e#8035#8585#0" />
+            <element signature="e#8599#9234#0" />
           </folding>
         </state>
       </provider>
