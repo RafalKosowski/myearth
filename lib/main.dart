@@ -155,8 +155,17 @@ class _HomePage extends State<HomePage> {
         title: Text("My Earth"),
       ),
       body: Center(
-          child: Text("Home",
-              style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold))),
+          child: ListView(
+            children: <Widget>[
+              Text("Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60. XX w. wraz z publikacją arkuszy Letrasetu, zawierających fragmenty Lorem Ipsum, a ostatnio z zawierającym różne wersje Lorem Ipsum oprogramowaniem przeznaczonym do realizacji druków na komputerach osobistych, jak Aldus PageMaker 1"),
+              Text("Element 2óżnych „kombinacji” zdań, słów i akapitów, w przeciwieństwie do zwykłego: „tekst, tekst, tekst”, sprawiającego, że wygląda to „zbyt czytelnie” po polsku. Wielu webmasterów i designerów używa Lorem Ipsum jako domyślnego modelu tekstu i wpisanie w internetowej wyszukiwarce ‘lorem ipsum’ spowoduje znalezienie bardzo wielu stron, które wciąż są w budowie. Wiele wersji tekstu ewoluowało i zmieniało się przez lata, czasem przez przypadek, czasem specjalnie (humorystyc"),
+              Text("Element óżnych „kombinacji” zdań, słów i akapitów, w przeciwieństwie do zwykłego: „tekst, tekst, tekst”, sprawiającego, że wygląda to „zbyt czytelnie” po polsku. Wielu webmasterów i designerów używa Lorem Ipsum jako domyślnego modelu tekstu i wpisanie w internetowej wyszukiwarce ‘lorem ipsum’ spowoduje znalezienie bardzo wielu stron, które wciąż są w budowie. Wiele wersji tekstu ewoluowało i zmieniało się przez lata, czasem przez przypadek, czasem specjalnie (humorystyc2"),
+              Text("Element 2"),
+              Text("Eleóżnych „kombinacji” zdań, słów i akapitów, w przeciwieństwie do zwykłego: „tekst, tekst, tekst”, sprawiającego, że wygląda to „zbyt czytelnie” po polsku. Wielu webmasterów i designerów używa Lorem Ipsum jako domyślnego modelu tekstu i wpisanie w internetowej wyszukiwarce ‘lorem ipsum’ spowoduje znalezienie bardzo wielu stron, które wciąż są w budowie. Wiele wersji tekstu ewoluowało i zmieniało się przez lata, czasem przez przypadek, czasem specjalnie (humorystycment 2"),
+              Text("Element 2"),
+              Text("Elóżnych „kombinacji” zdań, słów i akapitów, w przeciwieństwie do zwykłego: „tekst, tekst, tekst”, sprawiającego, że wygląda to „zbyt czytelnie” po polsku. Wielu webmasterów i designerów używa Lorem Ipsum jako domyślnego modelu tekstu i wpisanie w internetowej wyszukiwarce ‘lorem ipsum’ spowoduje znalezienie bardzo wielu stron, które wciąż są w budowie. Wiele wersji tekstu ewoluowało i zmieniało się przez lata, czasem przez przypadek, czasem specjalnie (humorystycement 2")
+            ],
+          ),),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
@@ -184,35 +193,112 @@ class _HomePage extends State<HomePage> {
 }
 
 
-class NewGraph extends StatelessWidget {
-  final List<DropdownMenuItem<int>> listDrop = [];
-  void loadData(){
-    listDrop.add(DropdownMenuItem(
-      child:Text("Warszawa"),
-      value: 1,
-    ));
-    listDrop.add(DropdownMenuItem(
-      child:Text("Kraków"),
-      value: 2,
-    ));
-    listDrop.add(DropdownMenuItem(
-      child:Text("Gdańsk"),
-      value: 3,
-    ));
+//graph
+class Company {
+  int id;
+  String name;
+
+  Company(this.id, this.name);
+
+  static List<Company> getCompanies() {
+    return <Company>[
+      Company(0, 'Warszawa'),
+      Company(1, 'Gdańsk'),
+      Company(2, 'Kraków'),
+      Company(3, 'Szczecin'),
+      Company(4, 'Poznań'),
+
+    ];
+  }
+}
+
+class NewGraph extends StatefulWidget {
+  @override
+  _NewGraph createState() {
+    return new _NewGraph();
+  }
+}
+class _NewGraph extends State<NewGraph> {
+
+  int i=0;
+  final List<List<Smog>> data =
+  [
+    //'Warszawa'
+    [ new Smog('CO', 1000.0,10000.0),
+      new Smog('O\u2083', 240.0, 120.0),
+      new Smog('PM\u2081\u2080', 16.6,50.0),
+      new Smog('PM\u2082\u0656\u2085  ', 27,25.0),
+      new Smog('SO\u2082', 10.4,350),
+      new Smog('NO\u2082', 19.8, 200),
+    ],
+    //'Gdańsk'
+    [ new Smog('CO', 10001.0,10000.0),
+      new Smog('O\u2083', 120.0, 120.0),
+      new Smog('PM\u2081\u2080', 50.0,50.0),
+      new Smog('PM\u2082\u0656\u2085  ', 20,25.0),
+      new Smog('SO\u2082', 10.4,350),
+      new Smog('NO\u2082', 19.8, 200),
+    ],
+    //'Kraków'
+    [ new Smog('CO', 11001.0,10000.0),
+      new Smog('O\u2083', 1205.0, 120.0),
+      new Smog('PM\u2081\u2080', 555.0,50.0),
+      new Smog('PM\u2082\u0656\u2085  ', 201,25.0),
+      new Smog('SO\u2082', 101.4,350),
+      new Smog('NO\u2082', 191.8, 200),
+    ],
+    //'Szczecin'
+    [ new Smog('CO', 1000.0,10000.0),
+      new Smog('O\u2083', 110.0, 120.0),
+      new Smog('PM\u2081\u2080', 40.0,50.0),
+      new Smog('PM\u2082\u0656\u2085  ', 10,25.0),
+      new Smog('SO\u2082', 11.4,350),
+      new Smog('NO\u2082', 13.8, 200),
+    ],
+    //'Poznań'
+    [ new Smog('CO', 1.0,10000.0),
+      new Smog('O\u2083', 1.0, 120.0),
+      new Smog('PM\u2081\u2080', 1.0,50.0),
+      new Smog('PM\u2082\u0656\u2085  ', 1,25.0),
+      new Smog('SO\u2082', 1.4,350),
+      new Smog('NO\u2082', 1.8, 200),
+    ],
+  ];
+
+  List<Company> _companies = Company.getCompanies();
+  List<DropdownMenuItem<Company>> _dropdownMenuItems;
+  Company _selectedCompany;
+
+  @override
+  void initState() {
+    _dropdownMenuItems = buildDropdownMenuItems(_companies);
+    _selectedCompany = _dropdownMenuItems[0].value;
+    super.initState();
   }
 
-  final List<Smog> data = [
-    new Smog('CO', 1000.0,10000.0),
-    new Smog('O\u2083', 240.0, 120.0),
-    new Smog('PM\u2081\u2080', 16.6,50.0),
-    new Smog('PM\u2082\u0656\u2085  ', 27,25.0),
-    new Smog('SO\u2082', 10.4,350),
-    new Smog('NO\u2082', 19.8, 200),
-  ];
+  List<DropdownMenuItem<Company>> buildDropdownMenuItems(List companies) {
+    List<DropdownMenuItem<Company>> items = List();
+    for (Company company in companies) {
+      items.add(
+        DropdownMenuItem(
+          value: company,
+          child: Text(company.name),
+        ),
+      );
+    }
+    return items;
+  }
+
+  onChangeDropdownItem(Company selectedCompany) {
+    setState(() {
+      _selectedCompany = selectedCompany;
+      i=selectedCompany.id;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    loadData();
+
     return Scaffold(
       appBar: AppBar(title: Text("Wykres")),
       body: Center(
@@ -220,10 +306,15 @@ class NewGraph extends StatelessWidget {
             padding: EdgeInsets.all(10),
             child: Column(
                 children: <Widget>[
-                  DropdownButton(items: listDrop ,hint: Text("Wybierz miasto"), onChanged:null,),
+                  DropdownButton(
+                    value: _selectedCompany,
+                    items: _dropdownMenuItems,
+                    onChanged: onChangeDropdownItem,
+                  ),
+
                   Text(" "),
                   Text("Zanieczyszczenie powietrza względem normy", style: Theme.of(context).textTheme.body2,),
-                  HorizontalBarChart(data),
+                  HorizontalBarChart(data[i]),
                   Text(" "),
                   Text("Nazwy substancji"),
                   Text('CO - Tlenek węgla (norma: 10000 µg/m\u00B3)'),
@@ -241,7 +332,8 @@ class NewGraph extends StatelessWidget {
     );
   }
 }
-
+//end graph
+//map
 class NewMap extends StatelessWidget {
 
   GoogleMapController mapController;
@@ -280,7 +372,8 @@ class NewMap extends StatelessWidget {
     );
   }
 }
-
+//end map
+//W klasie NewPage4 w przyszłości wprowadzamy ziemię 3d z zmianami klimatycznymi
 class NewPage4 extends StatelessWidget {
 
   @override
@@ -288,12 +381,16 @@ class NewPage4 extends StatelessWidget {
     var userLocation = Provider.of<UserLocation>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Współrzędne"),
+        title: Text("Test Lokalizacji"),
       ),
       body: Center(
-          child: Text('Location: Lat${userLocation?.latitude}, Long: ${userLocation?.longitude}',
-              style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold))),
+        child: ListView(
+          children: <Widget>[
+           Text("Testowanie lokalizacji. (W przyszłości ziemia 3d pokazująca zmiany klimatyczne na ziemi)"),
+          Text('Location: Lat${userLocation?.latitude}, Long: ${userLocation?.longitude}',
+          style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold)),
+            ],
+        ),),
     );
   }
 }
-
