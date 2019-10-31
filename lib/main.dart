@@ -10,7 +10,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 //API
 //stacje
-Future<stacje> fetchPost() async {
+Future<PostsList> fetchPost() async {
   final response =
   await http.get('http://api.gios.gov.pl/pjp-api/rest/station/findAll');
   await http.get('http://api.gios.gov.pl/pjp-api/rest/aqindex/getIndex/{stationId}');
@@ -19,23 +19,38 @@ Future<stacje> fetchPost() async {
 
   if (response.statusCode == 200) {
     // If the call to the server was successful, parse the JSON.
-    return stacje.fromJson(json.decode(response.body));
+    return PostsList.fromJson(json.decode(response.body));
   } else {
     // If that call was not successful, throw an error.
     throw Exception('Failed to load post');
   }
 
 }
+class PostsList {
+  final List<Post> posts;
+  PostsList({
+    this.posts,
+  });
 
-class stacje {
-  int id;
-  String stationName;
-  String gegrLat;
-  String gegrLon;
-  City city;
-  Null addressStreet;
+  factory PostsList.fromJson(List<dynamic> parsedJson) {
 
-  stacje(
+    List<Post> posts = new List<Post>();
+    posts = parsedJson.map((i)=>Post.fromJson(i)).toList();
+
+    return new PostsList(
+        posts: posts
+    );
+  }
+}
+class Post {
+  final int id;
+  final String stationName;
+  final String gegrLat;
+  final String gegrLon;
+  final City city;
+  final String addressStreet;
+
+  Post(
       {this.id,
         this.stationName,
         this.gegrLat,
@@ -43,27 +58,17 @@ class stacje {
         this.city,
         this.addressStreet});
 
-  stacje.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    stationName = json['stationName'];
-    gegrLat = json['gegrLat'];
-    gegrLon = json['gegrLon'];
-    city = json['city'] != null ? new City.fromJson(json['city']) : null;
-    addressStreet = json['addressStreet'];
+  factory Post.fromJson(Map<String, dynamic> json) {
+    return Post(
+      id: json['id'],
+      stationName: json['stationName'],
+      gegrLat: json['gegrLat'],
+      gegrLon: json['gegrLon'],
+      city: json['city'] != null ? new City.fromJson(json['city']) : null,
+      addressStreet: json['addressStreet'],
+    );
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['stationName'] = this.stationName;
-    data['gegrLat'] = this.gegrLat;
-    data['gegrLon'] = this.gegrLon;
-    if (this.city != null) {
-      data['city'] = this.city.toJson();
-    }
-    data['addressStreet'] = this.addressStreet;
-    return data;
-  }
 }
 
 class City {
@@ -112,6 +117,7 @@ class Commune {
     return data;
   }
 }
+//Api do tego momentu działa można do tych elementów się odwoływać
 
 //index
 
@@ -486,7 +492,7 @@ class _HomePage extends State<HomePage> {
         case 3:
           Navigator.of(context)
               .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
-            return new NewPage4();
+            return new Earth();
           }));
           break;
       }
@@ -728,130 +734,91 @@ class NewMap extends StatelessWidget {
     mapController = controller;
   }
 
-  List<Circle> allCircle = [
-    Circle(
-      circleId: CircleId('Warszawa'),
-      center: LatLng(52.2297700, 21.0117800),
-      strokeColor:  Color.fromRGBO(255, 0, 0, 0.5),
-      fillColor: Color.fromRGBO(255, 0, 0, 0.3),
-      radius: 15000,
-    ),
-    Circle(
-      circleId: CircleId('Poznan'),
-      center: LatLng(53.121764, 17.987906),
-      strokeColor:  Color.fromRGBO(255, 0, 0, 0.5),
-      fillColor: Color.fromRGBO(255, 0, 0, 0.3),
-      radius: 15000,
-    ),
-    Circle(
-      circleId: CircleId('Poznan'),
-      center: LatLng(52.398175, 16.959519),
-      strokeColor:  Color.fromRGBO(255, 0, 0, 0.5),
-      fillColor: Color.fromRGBO(255, 0, 0, 0.3),
-      radius: 15000,
-    ),
-    Circle(
-      circleId: CircleId('Lodz'),
-      center: LatLng(51.775411, 19.450900),
-      strokeColor:  Color.fromRGBO(255, 0, 0, 0.5),
-      fillColor: Color.fromRGBO(255, 0, 0, 0.3),
-      radius: 15000,
-    ),
-    Circle(
-      circleId: CircleId('Szczecin'),
-      center: LatLng(53.447000, 14.508000),
-      strokeColor:  Color.fromRGBO(255, 173, 0, 0.5),
-      fillColor: Color.fromRGBO(255, 173, 0, 0.3),
-      radius: 15000,
-    ),
-    Circle(
-      circleId: CircleId('Gdynia'),
-      center: LatLng(54.525274, 18.536382),
-      strokeColor:  Color.fromRGBO(255, 255, 0, 0.5),
-      fillColor: Color.fromRGBO(255, 255, 0, 0.3),
-      radius: 15000,
-    ),
-    Circle(
-      circleId: CircleId('Olsztyn'),
-      center: LatLng(53.789233, 20.486075),
-      strokeColor:  Color.fromRGBO(0, 255, 0, 0.5),
-      fillColor: Color.fromRGBO(0, 255, 0, 0.3),
-      radius: 15000,
-    ),
-    Circle(
-      circleId: CircleId('Katowice'),
-      center: LatLng(50.246795, 19.019469),
-      strokeColor:  Color.fromRGBO(255, 0, 0, 0.5),
-      fillColor: Color.fromRGBO(255, 0, 0, 0.3),
-      radius: 15000,
-    ),
-    Circle(
-      circleId: CircleId('Wroclaw'),
-      center: LatLng(51.115933, 17.141125),
-      strokeColor:  Color.fromRGBO(255, 173, 0, 0.5),
-      fillColor: Color.fromRGBO(255, 173, 0, 0.3),
-      radius: 15000,
-    ),
-    Circle(
-      circleId: CircleId('Krakow'),
-      center: LatLng(50.057678, 19.926189),
-      strokeColor:  Color.fromRGBO(255, 0, 0, 0.5),
-      fillColor: Color.fromRGBO(255, 0, 0, 0.3),
-      radius: 15000,
-    ),
-    Circle(
-      circleId: CircleId('Bialystok'),
-      center: LatLng(53.129306, 23.181744),
-      strokeColor:  Color.fromRGBO(0, 255, 0, 0.5),
-      fillColor: Color.fromRGBO(0, 255, 0, 0.3),
-      radius: 15000,
-    ),
-    Circle(
-      circleId: CircleId('Lublin'),
-      center: LatLng(51.259431, 22.569133),
-      strokeColor:  Color.fromRGBO(255, 255, 0, 0.5),
-      fillColor: Color.fromRGBO(255, 255, 0, 0.3),
-      radius: 15000,
-    ),
-  ];
+  List<Circle> allCircle = [  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Map'),
+        title: Text('Mapa zanieczyszczeń'),
       ),
-      body: GoogleMap(
-        circles: Set.from(allCircle),
-        onMapCreated: _onMapCreated,
-        initialCameraPosition: CameraPosition(
-          target: _center,
-          zoom: 11.0,
+      body: Center(
+        child: FutureBuilder<PostsList>(
+          future: fetchPost(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              for(var i = 0; i < snapshot.data.posts.length; i++) {
+                allCircle.add(Circle(
+                  circleId: CircleId('Warszawa'),
+                  center: LatLng(double.parse(snapshot.data.posts[i].gegrLat), double.parse(snapshot.data.posts[i].gegrLon)),
+                  strokeColor: Color.fromRGBO(0, 255, 0, 0.5),
+                  fillColor: Color.fromRGBO(0, 255, 0, 0.3),
+                  radius: 10000,
+                ));
+              }
+
+              return GoogleMap(circles: Set.from(allCircle),
+                onMapCreated: _onMapCreated,
+                initialCameraPosition: CameraPosition(
+                  target: _center,
+                  zoom: 11.0,
+                ),);
+            } else if (snapshot.hasError) {
+              return Text("${snapshot.error}");
+            }
+
+            // By default, show a loading spinner.
+            return CircularProgressIndicator();
+          },
         ),
       ),
     );
   }
 }
 //end map
-//W klasie NewPage4 w przyszłości wprowadzamy ziemię 3d z zmianami klimatycznymi
-class NewPage4 extends StatelessWidget {
+
+//W klasie Earth w przyszłości wprowadzamy ziemię 3d z zmianami klimatycznymi
+
+class Earth extends StatefulWidget {
+  @override
+  _Earth createState() {
+    return new _Earth();
+  }
+}
+
+class _Earth extends State<Earth>{
+  Future<Post> post;
+
+  @override
+  void initState() {
+    super.initState();
+
+  }
 
   @override
   Widget build(BuildContext context) {
-    var userLocation = Provider.of<UserLocation>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Test Lokalizacji"),
+        title: Text('Fetch data example'),
       ),
       body: Center(
-        child: ListView(
-          children: <Widget>[
-           Text('Testowanie lokalizacji. (W przyszłości ziemia 3d pokazująca zmiany klimatyczne na ziemi)',
-            style: TextStyle(fontSize: 21)),
-          Text('Location: Lat${userLocation?.latitude}, Long: ${userLocation?.longitude}',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            ],
-        ),),
+        child: FutureBuilder<Post>(
+          future: post,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Text(snapshot.data.city.name);
+            } else if (snapshot.hasError) {
+              return Text("${snapshot.error}");
+            }
+
+            // By default, show a loading spinner.
+            return CircularProgressIndicator();
+          },
+        ),
+      ),
     );
   }
+
 }
+
+

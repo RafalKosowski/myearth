@@ -32,8 +32,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="809" column="35" lean-forward="true" selection-start-line="809" selection-start-column="35" selection-end-line="809" selection-end-column="35" />
+            <state relative-caret-position="336">
+              <caret line="755" column="28" selection-start-line="755" selection-start-column="28" selection-end-line="755" selection-end-column="28" />
+              <folding>
+                <element signature="e#0#20#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -67,21 +70,30 @@
         <option value="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/android/build.gradle" />
         <option value="$PROJECT_DIR$/lib/route.dart" />
+        <option value="$PROJECT_DIR$/lib/earth.dart" />
+        <option value="$PROJECT_DIR$/lib/graph.dart" />
+        <option value="$PROJECT_DIR$/lib/map.dart" />
+        <option value="$PROJECT_DIR$/lib/station.dart" />
         <option value="$PROJECT_DIR$/lib/main.dart" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="184" />
-    <option name="y" value="-25" />
+    <option name="x" value="319" />
+    <option name="y" value="-10" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -124,8 +136,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -133,7 +143,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../api" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -197,7 +207,14 @@
       <option name="project" value="LOCAL" />
       <updated>1571925647458</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Wyjaśnienia zagadnień. Więcej testowych obszarów na mapie. Api działa lecz brak wyciągania z niego danych :( :'(">
+      <created>1571945521613</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1571945521613</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView">
@@ -222,8 +239,8 @@
       <window_info id="Resources Explorer" order="6" weight="0.32995737" />
       <window_info id="Capture Tool" order="7" />
       <window_info id="Favorites" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Dart Analysis" order="0" sideWeight="0.49946696" weight="0.30985916" />
-      <window_info active="true" anchor="bottom" id="Run" order="1" sideWeight="0.49733475" visible="true" weight="0.2964989" />
+      <window_info anchor="bottom" id="Dart Analysis" order="0" sideWeight="0.49946696" weight="0.1744312" />
+      <window_info active="true" anchor="bottom" id="Run" order="1" sideWeight="0.49733475" visible="true" weight="0.16849016" />
       <window_info anchor="bottom" id="TODO" order="2" weight="0.32936078" />
       <window_info anchor="bottom" id="Android Profiler" order="3" show_stripe_button="false" />
       <window_info anchor="bottom" id="Logcat" order="4" weight="0.32936078" />
@@ -259,7 +276,8 @@
     <MESSAGE value="Działa menu gps internet mapa wykres api w drodze" />
     <MESSAGE value="dodany przycisk na wykresie" />
     <MESSAGE value="Dodane api???" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dodane api???" />
+    <MESSAGE value="Wyjaśnienia zagadnień. Więcej testowych obszarów na mapie. Api działa lecz brak wyciągania z niego danych :( :'(" />
+    <option name="LAST_COMMIT_MESSAGE" value="Wyjaśnienia zagadnień. Więcej testowych obszarów na mapie. Api działa lecz brak wyciągania z niego danych :( :'(" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://D:/src/flutter/packages/flutter/lib/src/widgets/framework.dart">
@@ -280,13 +298,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
           <caret line="46" column="16" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.flutter-plugins">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="47" lean-forward="true" selection-start-column="47" selection-end-column="47" />
         </state>
       </provider>
     </entry>
@@ -317,14 +328,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pubspec.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="664">
-          <caret line="47" column="29" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
+        <state relative-caret-position="307">
+          <caret line="29" column="2" selection-start-line="29" selection-start-column="2" selection-end-line="29" selection-end-column="17" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.flutter-plugins">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="47" lean-forward="true" selection-start-column="47" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/earth.dart" />
+    <entry file="file://$PROJECT_DIR$/lib/map.dart" />
     <entry file="file://$PROJECT_DIR$/lib/chart.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="935">
+        <state relative-caret-position="578">
           <caret line="55" column="1" selection-start-line="55" selection-start-column="1" selection-end-line="55" selection-end-column="1" />
           <folding>
             <element signature="e#0#55#0" expanded="true" />
@@ -332,10 +352,15 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/graph.dart" />
+    <entry file="file://$PROJECT_DIR$/lib/station.dart" />
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="809" column="35" lean-forward="true" selection-start-line="809" selection-start-column="35" selection-end-line="809" selection-end-column="35" />
+        <state relative-caret-position="336">
+          <caret line="755" column="28" selection-start-line="755" selection-start-column="28" selection-end-line="755" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
