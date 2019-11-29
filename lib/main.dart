@@ -7,15 +7,13 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:location/location.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'dart:math';
 
 //API
 //stacje
 Future<PostsList> fetchPost() async {
   final response =
   await http.get('http://api.gios.gov.pl/pjp-api/rest/station/findAll');
-  await http.get('http://api.gios.gov.pl/pjp-api/rest/aqindex/getIndex/{stationId}');
-  await http.get('http://api.gios.gov.pl/pjp-api/rest/station/sensors/{stationId}');
-  await http.get('http://api.gios.gov.pl/pjp-api/rest/data/getData/{sensorId}');
 
   if (response.statusCode == 200) {
     // If the call to the server was successful, parse the JSON.
@@ -120,36 +118,65 @@ class Commune {
 //Api do tego momentu działa można do tych elementów się odwoływać
 
 //index
+Future<indexList> getIndex() async {
+  final response =
+  await http.get('http://api.gios.gov.pl/pjp-api/rest/aqindex/getIndex/52');
 
-class index {
-  int id;
-  String stCalcDate;
-  StIndexLevel stIndexLevel;
-  String stSourceDataDate;
-  String so2CalcDate;
-  Null so2IndexLevel;
-  String so2SourceDataDate;
-  String no2CalcDate;
-  Null no2IndexLevel;
-  String no2SourceDataDate;
-  String coCalcDate;
-  Null coIndexLevel;
-  String coSourceDataDate;
-  String pm10CalcDate;
-  Null pm10IndexLevel;
-  String pm10SourceDataDate;
-  String pm25CalcDate;
-  Null pm25IndexLevel;
-  Null pm25SourceDataDate;
-  String o3CalcDate;
-  Null o3IndexLevel;
-  String o3SourceDataDate;
-  String c6h6CalcDate;
-  Null c6h6IndexLevel;
-  String c6h6SourceDataDate;
+  if (response.statusCode == 200) {
+    // If the call to the server was successful, parse the JSON.
+    return indexList.fromJson(json.decode(response.body));
+  } else {
+    // If that call was not successful, throw an error.
+    throw Exception('Failed to load post');
+  }
+}
+class indexList {
+  final List<Index> indexs;
+  indexList({
+    this.indexs,
+  });
 
-  index(
-      {this.id,
+  factory indexList.fromJson(List<dynamic> parsedJson) {
+
+    List<Index> indexs = new List<Index>();
+    indexs = parsedJson.map((i)=>Index.fromJson(i)).toList();
+
+    return new indexList(
+        indexs: indexs
+    );
+  }
+}
+class Index {
+
+  final int id;
+  final String stCalcDate;
+  final StIndexLevel stIndexLevel;
+  final String stSourceDataDate;
+  final String so2CalcDate;
+  final Null so2IndexLevel;
+  final String so2SourceDataDate;
+  final String no2CalcDate;
+  final Null no2IndexLevel;
+  final String no2SourceDataDate;
+  final String coCalcDate;
+  final Null coIndexLevel;
+  final String coSourceDataDate;
+  final String pm10CalcDate;
+  final Null pm10IndexLevel;
+  final String pm10SourceDataDate;
+  final String pm25CalcDate;
+  final Null pm25IndexLevel;
+  final Null pm25SourceDataDate;
+  final String o3CalcDate;
+  final Null o3IndexLevel;
+  final String o3SourceDataDate;
+  final String c6h6CalcDate;
+  final Null c6h6IndexLevel;
+  final String c6h6SourceDataDate;
+
+  Index(
+      {
+        this.id,
         this.stCalcDate,
         this.stIndexLevel,
         this.stSourceDataDate,
@@ -175,34 +202,36 @@ class index {
         this.c6h6IndexLevel,
         this.c6h6SourceDataDate});
 
-  index.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    stCalcDate = json['stCalcDate'];
-    stIndexLevel = json['stIndexLevel'] != null
+  factory Index.fromJson(Map<String, dynamic> json) {
+    return Index(
+    id: json['id'],
+    stCalcDate: json['stCalcDate'],
+    stIndexLevel: json['stIndexLevel'] != null
         ? new StIndexLevel.fromJson(json['stIndexLevel'])
-        : null;
-    stSourceDataDate = json['stSourceDataDate'];
-    so2CalcDate = json['so2CalcDate'];
-    so2IndexLevel = json['so2IndexLevel'];
-    so2SourceDataDate = json['so2SourceDataDate'];
-    no2CalcDate = json['no2CalcDate'];
-    no2IndexLevel = json['no2IndexLevel'];
-    no2SourceDataDate = json['no2SourceDataDate'];
-    coCalcDate = json['coCalcDate'];
-    coIndexLevel = json['coIndexLevel'];
-    coSourceDataDate = json['coSourceDataDate'];
-    pm10CalcDate = json['pm10CalcDate'];
-    pm10IndexLevel = json['pm10IndexLevel'];
-    pm10SourceDataDate = json['pm10SourceDataDate'];
-    pm25CalcDate = json['pm25CalcDate'];
-    pm25IndexLevel = json['pm25IndexLevel'];
-    pm25SourceDataDate = json['pm25SourceDataDate'];
-    o3CalcDate = json['o3CalcDate'];
-    o3IndexLevel = json['o3IndexLevel'];
-    o3SourceDataDate = json['o3SourceDataDate'];
-    c6h6CalcDate = json['c6h6CalcDate'];
-    c6h6IndexLevel = json['c6h6IndexLevel'];
-    c6h6SourceDataDate = json['c6h6SourceDataDate'];
+        : null,
+    stSourceDataDate: json['stSourceDataDate'],
+    so2CalcDate: json['so2CalcDate'],
+    so2IndexLevel: json['so2IndexLevel'],
+    so2SourceDataDate: json['so2SourceDataDate'],
+    no2CalcDate: json['no2CalcDate'],
+    no2IndexLevel: json['no2IndexLevel'],
+    no2SourceDataDate: json['no2SourceDataDate'],
+    coCalcDate: json['coCalcDate'],
+    coIndexLevel: json['coIndexLevel'],
+    coSourceDataDate: json['coSourceDataDate'],
+    pm10CalcDate: json['pm10CalcDate'],
+    pm10IndexLevel: json['pm10IndexLevel'],
+    pm10SourceDataDate: json['pm10SourceDataDate'],
+    pm25CalcDate: json['pm25CalcDate'],
+    pm25IndexLevel: json['pm25IndexLevel'],
+    pm25SourceDataDate: json['pm25SourceDataDate'],
+    o3CalcDate: json['o3CalcDate'],
+    o3IndexLevel: json['o3IndexLevel'],
+    o3SourceDataDate: json['o3SourceDataDate'],
+    c6h6CalcDate: json['c6h6CalcDate'],
+    c6h6IndexLevel: json['c6h6IndexLevel'],
+    c6h6SourceDataDate: json['c6h6SourceDataDate'],
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -258,19 +287,49 @@ class StIndexLevel {
 }
 
 //sensory
+Future<sensoryList> getsensory() async {
+  final response =
+    await http.get('http://api.gios.gov.pl/pjp-api/rest/station/sensors/14');
+
+  if (response.statusCode == 200) {
+    // If the call to the server was successful, parse the JSON.
+    return sensoryList.fromJson(json.decode(response.body));
+  } else {
+    // If that call was not successful, throw an error.
+    throw Exception('Failed to load post');
+  }
+
+}
+class sensoryList {
+  final List<sensory> sensors;
+  sensoryList({
+    this.sensors,
+  });
+
+  factory sensoryList.fromJson(List<dynamic> parsedJson) {
+
+    List<sensory> sensors = new List<sensory>();
+    sensors = parsedJson.map((i)=>sensory.fromJson(i)).toList();
+
+    return new sensoryList(
+        sensors: sensors
+    );
+  }
+}
 
 class sensory {
-  int id;
-  int stationId;
-  Param param;
+  final int id;
+  final int stationId;
+  final Param param;
 
   sensory({this.id, this.stationId, this.param});
 
-  sensory.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    stationId = json['stationId'];
-    param = json['param'] != null ? new Param.fromJson(json['param']) : null;
-  }
+  factory sensory.fromJson(Map<String, dynamic> json) {
+    return sensory(
+    id: json['id'],
+    stationId: json['stationId'],
+    param: json['param'] != null ? new Param.fromJson(json['param']) : null,
+    );}
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -284,19 +343,20 @@ class sensory {
 }
 
 class Param {
-  String paramName;
-  String paramFormula;
-  String paramCode;
-  int idParam;
+  final String paramName;
+  final String paramFormula;
+  final String paramCode;
+  final int idParam;
 
   Param({this.paramName, this.paramFormula, this.paramCode, this.idParam});
 
-  Param.fromJson(Map<String, dynamic> json) {
-    paramName = json['paramName'];
-    paramFormula = json['paramFormula'];
-    paramCode = json['paramCode'];
-    idParam = json['idParam'];
-  }
+  factory Param.fromJson(Map<String, dynamic> json) {
+    return Param(
+    paramName: json['paramName'],
+    paramFormula: json['paramFormula'],
+    paramCode: json['paramCode'],
+    idParam: json['idParam'],
+    );}
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -309,11 +369,25 @@ class Param {
 }
 
 //dane
+Future<dane> getdane() async {
+  var xzc = "http://api.gios.gov.pl/pjp-api/rest/data/getData/88";
+  final response =
+  await http.get(xzc);
+
+  if (response.statusCode == 200) {
+    // If the call to the server was successful, parse the JSON.
+    return dane.fromJson(json.decode(response.body));
+  } else {
+    // If that call was not successful, throw an error.
+    throw Exception('Failed to load post');
+  }
+
+}
 
 class dane {
-  String key;
-  List<Values> values;
-
+ String key;
+ List<Values> values;
+  var liczba;
   dane({this.key, this.values});
 
   dane.fromJson(Map<String, dynamic> json) {
@@ -443,14 +517,18 @@ class _HomePage extends State<HomePage> {
         InternetAddress.lookup('google.com').then((result) {
           if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
             print('connected');
+            _Dialog();
           } else {
             _showDialog(); // show dialog
+            _Dialog();
           }
         }).catchError((error) {
           _showDialog(); // show dialog
+          _Dialog();
         });
       } on SocketException catch (_) {
         _showDialog();
+        _Dialog();
         print('not connected'); // show dialog
       }
     });
@@ -464,6 +542,14 @@ class _HomePage extends State<HomePage> {
         context: context,
         builder: (context) => AlertDialog(
           content: Text("Brak połączenia z internetem. Do poprawnego działania aplikacji wymagany jest internet"),
+        ));
+  }
+  void _Dialog() {
+    // dialog implementation
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          content: Text("Aplikacja jest wciąż w budowie. Nie wszystkie dane pomiarowe są pobierane. Przepraszamy za utrudnienia."),
         ));
   }
   // End dialog check internet
@@ -583,22 +669,11 @@ class _HomePage extends State<HomePage> {
 
 
 //graph
-class Company {
+class Stations{
   int id;
   String name;
 
-  Company(this.id, this.name);
-
-  static List<Company> getCompanies() {
-    return <Company>[
-      Company(0, 'Warszawa'),
-      Company(1, 'Gdańsk'),
-      Company(2, 'Kraków'),
-      Company(3, 'Szczecin'),
-      Company(4, 'Poznań'),
-
-    ];
-  }
+  Stations(this.id, this.name);
 }
 
 class NewGraph extends StatefulWidget {
@@ -609,82 +684,33 @@ class NewGraph extends StatefulWidget {
 }
 class _NewGraph extends State<NewGraph> {
 
-  int i=0;
+  int z=0;
+  var rng = new Random();
   final List<List<Smog>> data =
   [
     //'Warszawa'
-    [ new Smog('CO', 1000.0,10000.0),
-      new Smog('O\u2083', 240.0, 120.0),
-      new Smog('PM\u2081\u2080', 16.6,50.0),
-      new Smog('PM\u2082\u0656\u2085  ', 27,25.0),
-      new Smog('SO\u2082', 10.4,350),
-      new Smog('NO\u2082', 19.8, 200),
-    ],
-    //'Gdańsk'
-    [ new Smog('CO', 10001.0,10000.0),
-      new Smog('O\u2083', 120.0, 120.0),
-      new Smog('PM\u2081\u2080', 50.0,50.0),
-      new Smog('PM\u2082\u0656\u2085  ', 20,25.0),
-      new Smog('SO\u2082', 10.4,350),
-      new Smog('NO\u2082', 19.8, 200),
-    ],
-    //'Kraków'
-    [ new Smog('CO', 11001.0,10000.0),
-      new Smog('O\u2083', 125.0, 120.0),
-      new Smog('PM\u2081\u2080', 55.0,50.0),
-      new Smog('PM\u2082\u0656\u2085  ', 21,25.0),
-      new Smog('SO\u2082', 101.4,350),
-      new Smog('NO\u2082', 191.8, 200),
-    ],
-    //'Szczecin'
-    [ new Smog('CO', 1000.0,10000.0),
-      new Smog('O\u2083', 110.0, 120.0),
-      new Smog('PM\u2081\u2080', 40.0,50.0),
-      new Smog('PM\u2082\u0656\u2085  ', 10,25.0),
-      new Smog('SO\u2082', 11.4,350),
-      new Smog('NO\u2082', 13.8, 200),
-    ],
-    //'Poznań'
-    [ new Smog('CO', 1.0,10000.0),
-      new Smog('O\u2083', 1.0, 120.0),
-      new Smog('PM\u2081\u2080', 1.0,50.0),
-      new Smog('PM\u2082\u0656\u2085  ', 1,25.0),
-      new Smog('SO\u2082', 1.4,350),
-      new Smog('NO\u2082', 1.8, 200),
+    [
+      new Smog('CO', 1111,10000.0),
+      new Smog('O\u2083', 44, 120.0),
+      new Smog('PM\u2081\u2080', 23,50.0),
+      new Smog('PM\u2082\u0656\u2085  ', 22,25.0),
+      new Smog('SO\u2082', 32,350),
+      new Smog('NO\u2082', 22, 200),
     ],
   ];
 
-  List<Company> _companies = Company.getCompanies();
-  List<DropdownMenuItem<Company>> _dropdownMenuItems;
-  Company _selectedCompany;
-
-  @override
-  void initState() {
-    _dropdownMenuItems = buildDropdownMenuItems(_companies);
-    _selectedCompany = _dropdownMenuItems[0].value;
-    super.initState();
-  }
-
-  List<DropdownMenuItem<Company>> buildDropdownMenuItems(List companies) {
-    List<DropdownMenuItem<Company>> items = List();
-    for (Company company in companies) {
-      items.add(
-        DropdownMenuItem(
-          value: company,
-          child: Text(company.name),
-        ),
-      );
-    }
-    return items;
-  }
-
-  onChangeDropdownItem(Company selectedCompany) {
+  String nameCity2 = "";
+  List<Stations> _currencies = [];
+  Stations _currentItemSelected ;
+  bool y=true;
+  onChangeDropdownItem(Stations selected) {
     setState(() {
-      _selectedCompany = selectedCompany;
-      i=selectedCompany.id;
+      print("wybrane:"+selected.name);
+      _currentItemSelected = selected;
+      z=selected.id;
     });
   }
-
+  List<DropdownMenuItem<Stations>>_dropdownitems=[];
   @override
   Widget build(BuildContext context) {
 
@@ -695,16 +721,66 @@ class _NewGraph extends State<NewGraph> {
             padding: EdgeInsets.all(10),
             child: Column(
                 children: <Widget>[
-                  DropdownButton(
-                    value: _selectedCompany,
-                    items: _dropdownMenuItems,
-                    onChanged: onChangeDropdownItem,
+                  FutureBuilder<PostsList>(
+                    future: fetchPost(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData && y==true) {
+                        y=false;
+                        var lt= snapshot.data.posts.length;
+                        for(var i = 0; i < lt; i++) {
+                          _currencies.add(Stations(i, snapshot.data.posts[i].stationName));
+                          print(snapshot.data.posts[i].stationName);
+                          _dropdownitems.add(
+                              DropdownMenuItem(
+                                value: _currencies[i],
+                                child: Text(_currencies[i].name),
+                              )
+                          );
+                        }
+                        _currentItemSelected=_currencies[0];
+                        print("_______________________________________________________________________________________");
+                      } else if (snapshot.hasError) {
+                        return Text("${snapshot.error}");
+                      }
+                      // By default, show a loading spinner.
+                      return DropdownButton<Stations>(
+                        items: _dropdownitems,
+                        onChanged:onChangeDropdownItem,
+                        value: _currentItemSelected,
+                      );
+                    },
                   ),
-
+                  FutureBuilder<dane>(
+                    future: getdane(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        var pm = snapshot.data.values[1].value;
+                        if(pm == null){
+                          pm = 12;
+                        }
+                        for(var i = 0; i < 187; i++) {
+                          var rng = new Random();
+                          data.add(
+                            [
+                              new Smog('CO', rng.nextInt(12000).toDouble(),10000.0),
+                              new Smog('O\u2083', rng.nextInt(140).toDouble(), 120.0),
+                              new Smog('PM\u2081\u2080', rng.nextInt(70).toDouble(),50.0),
+                              new Smog('PM\u2082\u0656\u2085  ', rng.nextInt(30).toDouble(),25.0),
+                              new Smog('SO\u2082', rng.nextInt(400).toDouble(),350),
+                              new Smog('NO\u2082', pm, 200),
+                            ],
+                          );
+                        }
+                      } else if (snapshot.hasError) {
+                        return Text("${snapshot.error}");
+                      }
+                      // By default, show a loading spinner.
+                      return Text('');
+                    },
+                  ),
                   Text(" "),
                   Text("Zanieczyszczenie powietrza względem normy", style: Theme.of(context).textTheme.body2,),
-                  HorizontalBarChart(data[i]),
-                  Text(" "),
+                  HorizontalBarChart(data[z]),
                   Text("Nazwy substancji"),
                   Text('CO - Tlenek węgla (norma: 10000 µg/m\u00B3)'),
                   Text('O\u2083 - Ozon troposferyczny(norma: 120 µg/m\u00B3)'),
@@ -713,10 +789,9 @@ class _NewGraph extends State<NewGraph> {
                   Text('PM\u2081\u2080 - Pył zawieszony PM10 (norma: 50 µg/m\u00B3)'),
                   Text('PM\u2082\u0656\u2085 - Pył zawieszony PM2,5 (norma: 25 µg/m\u00B3)'),
                 ]
+
             ),
           )
-        // DropdownButton(items:null,onChanged: null,),
-        //HorizontalBarChart(data),
       ),
     );
   }
@@ -787,38 +862,31 @@ class Earth extends StatefulWidget {
 }
 
 class _Earth extends State<Earth>{
-  Future<Post> post;
-
-  @override
-  void initState() {
-    super.initState();
-
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Fetch data example'),
+        title: Text("Test"),
       ),
       body: Center(
-        child: FutureBuilder<Post>(
-          future: post,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return Text(snapshot.data.city.name);
-            } else if (snapshot.hasError) {
-              return Text("${snapshot.error}");
-            }
-
-            // By default, show a loading spinner.
-            return CircularProgressIndicator();
-          },
-        ),
-      ),
+        child: ListView(
+          padding: EdgeInsets.all(10.0),
+          children: <Widget>[
+            Text("W aktualizacji pokazane będą tutaj zmiany klimatyczne kuli ziemskiej",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          ],
+        ),),
     );
   }
-
 }
+
+
+
+
+
+
+
+
 
 
